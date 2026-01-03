@@ -8,13 +8,38 @@ export const commonStyles = StyleSheet.create({
   flex1: {
     flex: 1,
   },
+  flex2: {
+    flex: 3,
+  },
   flexCenter: {
     justifyContent: 'center',
     alignItems: 'center',
   },
 
+  flexRow: {
+    flexDirection: 'row',
+  },
+  justifyBetween: {
+    justifyContent: 'space-between',
+  },
+  alignCenter: {
+    alignItems: 'center',
+  },
+
   container: {
-    backgroundColor: theme.colors.background,
+    backgroundColor: theme.colors.white,
+  },
+
+  bgPrimary: {
+    backgroundColor: theme.colors.primary,
+  },
+
+  bgSecondary: {
+    backgroundColor: theme.colors.secondary,
+  },
+
+  bgHighlight: {
+    backgroundColor: theme.colors.highlight,
   },
 
   //   paddings
@@ -74,5 +99,19 @@ export const commonStyles = StyleSheet.create({
 
   textCenter: {
     textAlign: 'center',
+  },
+
+  textPrimary: {
+    color: theme.colors.primary,
+  },
+  textSecondary: {
+    color: theme.colors.secondary,
+  },
+  textWhite: {
+    color: theme.colors.white,
+  },
+
+  textBold: {
+    fontWeight: 'bold',
   },
 });

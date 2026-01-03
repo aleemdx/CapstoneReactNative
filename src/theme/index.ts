@@ -22,7 +22,7 @@ const defaultTheme = {
     ...DefaultTheme.colors,
     primary: '#495E57',
     secondary: '#F4CE14',
-    background: '#EDEFEE',
+    background: '#FFFFFF',
 
     // custom colors
 

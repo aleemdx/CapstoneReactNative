@@ -8,12 +8,13 @@ import Navigator from './navigations';
 import { theme } from './theme/index';
 import { commonStyles } from './theme/commonStyle';
 import { AuthContextProvider } from 'contexts/Auth';
+import navigationTheme from './theme/navigation';
 
 const App: FC = () => {
   return (
     <PaperProvider theme={theme}>
-      <NavigationContainer>
-        <SafeAreaView style={[commonStyles.flex1, commonStyles.container]}>
+      <NavigationContainer theme={navigationTheme}>
+        <SafeAreaView style={[commonStyles.flex1]}>
           <AuthContextProvider>
             <Navigator />
           </AuthContextProvider>

@@ -1,4 +1,4 @@
-import type { KeyboardTypeOptions } from 'react-native';
+import type { ImageSourcePropType, KeyboardTypeOptions } from 'react-native';
 import type { TextInputProps } from 'react-native-paper';
 import type { IconSource } from 'react-native-paper/lib/typescript/components/Icon';
 
@@ -9,6 +9,19 @@ export type User = {
 };
 
 export type Nullable<T> = T | null;
+
+export type CategoryType = {
+  id: string;
+  name: string;
+};
+
+export type ProductType = {
+  id: string;
+  name: string;
+  price: number;
+  image: ImageSourcePropType;
+  description: string;
+};
 
 // props types
 
@@ -27,6 +40,10 @@ export type InputControllerProps = {
   variant?: TextInputProps['mode'];
   onBlur?: () => void;
   onFocus?: () => void;
+};
+
+export type ProductItemProps = {
+  item: ProductType;
 };
 
 // context types
