@@ -1,11 +1,12 @@
 import React, { FC } from 'react';
 import { View } from 'react-native';
 import TextInputMask from 'react-native-mask-input';
-import { HelperText, TextInput } from 'react-native-paper';
+import { HelperText, Text, TextInput } from 'react-native-paper';
 import { RenderProps } from 'react-native-paper/lib/typescript/components/TextInput/types';
 import { Controller, useFormContext } from 'react-hook-form';
 // interfaces
 import { InputControllerProps } from 'interfaces/index';
+import { commonStyles } from 'theme/commonStyle';
 
 const InputController: FC<InputControllerProps> = ({
   name,
@@ -47,9 +48,11 @@ const InputController: FC<InputControllerProps> = ({
 
         return (
           <View>
+            <Text variant="bodyMedium" style={commonStyles.mb1}>
+              {isRequired ? `${label} *` : label}
+            </Text>
             <TextInput
               ref={ref}
-              label={isRequired ? `${label} *` : label}
               value={value}
               nativeID={nativeId}
               onChangeText={onChange}

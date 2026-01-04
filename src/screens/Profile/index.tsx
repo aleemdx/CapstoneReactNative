@@ -40,6 +40,7 @@ import {
   FIRST_NAME_PLACEHOLDER,
   PROFILE_FORM_INITIAL_VALUES,
   IMAGE_STORAGE_KEY,
+  AVATAR,
 } from 'constants/index';
 
 const Profile: FC = () => {
@@ -146,6 +147,7 @@ const Profile: FC = () => {
       </View>
       <ScrollView style={[commonStyles.p2, commonStyles.flex1]}>
         <Text variant="titleLarge">{PERSONAL_INFORMATION}</Text>
+        <Text style={[commonStyles.mt1]}>{AVATAR}</Text>
         <View
           style={[
             commonStyles.flexRow,

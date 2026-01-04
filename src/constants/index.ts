@@ -30,6 +30,7 @@ export const EMAIL_PLACEHOLDER = 'Enter your email';
 export const PHONE = 'Phone';
 export const PHONE_PLACEHOLDER = 'Enter your phone';
 export const PERSONAL_INFORMATION = 'Personal Information';
+export const AVATAR = 'Avatar';
 export const EMAIL_NOTIFICATIONS = 'Email Notifications';
 export const DISCARD_CHANGES = 'Discard Changes';
 export const SAVE_CHANGES = 'Save Changes';

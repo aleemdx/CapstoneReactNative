@@ -10,7 +10,7 @@ import { commonStyles } from './theme/commonStyle';
 import { AuthContextProvider } from 'contexts/Auth';
 import navigationTheme from './theme/navigation';
 // Database
-import { closeDatabase, executeMigration } from 'config/db';
+import { executeMigration } from 'config/db';
 
 const App: FC = () => {
   const initializeDatabase = async () => {
@@ -24,9 +24,6 @@ const App: FC = () => {
 
   useEffect(() => {
     initializeDatabase();
-    return () => {
-      closeDatabase();
-    };
   }, []);
 
   return (
