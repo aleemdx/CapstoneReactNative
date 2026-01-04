@@ -44,6 +44,7 @@ import {
 const Profile: FC = () => {
   const [imageUri, setImageUri] = useState<string>('');
   const { setIsLoggedIn, setUser, user } = useAuthContext();
+  const { firstName = '', lastName = '' } = user || {};
   const methods = useForm<ProfileFormType>({
     resolver: yupResolver(profileSchema),
     defaultValues: PROFILE_FORM_INITIAL_VALUES,
@@ -95,19 +96,19 @@ const Profile: FC = () => {
   const setProfileData = useCallback(async () => {
     if (user) {
       const {
-        firstName = '',
+        firstName: fName = '',
         email = '',
         phone = '',
-        lastName = '',
+        lastName: lName = '',
         orderStatus = false,
         passwordChange = false,
         specialOffers = false,
         newsletter = false,
       } = user;
-      setValue('firstName', firstName);
+      setValue('firstName', fName);
       setValue('email', email);
       setValue('phone', phone);
-      setValue('lastName', lastName);
+      setValue('lastName', lName);
       setValue('orderStatus', orderStatus);
       setValue('passwordChange', passwordChange);
       setValue('specialOffers', specialOffers);
@@ -134,8 +135,11 @@ const Profile: FC = () => {
           iconColor={theme.colors.white}
         />
         <LogoIcon />
-
-        <Avatar.Image size={50} source={imageUri ? { uri: imageUri } : require('assets/img/Profile.png')} />
+        {imageUri ? (
+          <Avatar.Image size={50} source={{ uri: imageUri }} />
+        ) : (
+          <Avatar.Text size={50} label={`${firstName[0]}${lastName[0]}`} />
+        )}
       </View>
       <ScrollView style={[commonStyles.p2, commonStyles.flex1]}>
         <Text variant="titleLarge">{PERSONAL_INFORMATION}</Text>
@@ -146,10 +150,11 @@ const Profile: FC = () => {
             commonStyles.alignCenter,
             commonStyles.mv2,
           ]}>
-          <Avatar.Image
-            size={100}
-            source={imageUri ? { uri: imageUri } : require('assets/img/Profile.png')}
-          />
+          {imageUri ? (
+            <Avatar.Image size={100} source={{ uri: imageUri }} />
+          ) : (
+            <Avatar.Text size={100} label={`${firstName[0]}${lastName[0]}`} />
+          )}
 
           <Button mode="contained" textColor={theme.colors.white} onPress={selectImage}>
             {CHANGE}
