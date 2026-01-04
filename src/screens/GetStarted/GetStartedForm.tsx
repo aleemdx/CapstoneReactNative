@@ -7,7 +7,7 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import InputController from 'controllers/Input';
 // Constants, Interfaces, Themes
 import { theme } from 'theme/index';
-import { User } from 'interfaces/index';
+import { GetStartedFormType } from 'interfaces/index';
 import { commonStyles } from 'theme/commonStyle';
 import { setAsyncStorageValue } from 'utils/storage';
 import { getStartedSchema } from 'validations/index';
@@ -20,9 +20,11 @@ import {
   FIRST_NAME_PLACEHOLDER,
   GET_STARTED_FORM_INITIAL_VALUES,
 } from 'constants/index';
+import { useAuthContext } from 'contexts/Auth';
 
 const GetStartedForm: FC = () => {
-  const methods = useForm<User>({
+  const { setIsLoggedIn, setUser } = useAuthContext();
+  const methods = useForm<GetStartedFormType>({
     resolver: yupResolver(getStartedSchema),
     defaultValues: GET_STARTED_FORM_INITIAL_VALUES,
   });
@@ -30,8 +32,10 @@ const GetStartedForm: FC = () => {
   const { handleSubmit, formState } = methods;
   const { isValid } = formState;
 
-  const onSubmit: SubmitHandler<User> = async (data) => {
+  const onSubmit: SubmitHandler<GetStartedFormType> = async (data) => {
     await setAsyncStorageValue(USER_STORAGE_KEY, JSON.stringify(data));
+    setIsLoggedIn(true);
+    setUser(data);
   };
 
   return (

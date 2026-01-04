@@ -1,6 +1,8 @@
 import React, { FC } from 'react';
 import { View } from 'react-native';
+import TextInputMask from 'react-native-mask-input';
 import { HelperText, TextInput } from 'react-native-paper';
+import { RenderProps } from 'react-native-paper/lib/typescript/components/TextInput/types';
 import { Controller, useFormContext } from 'react-hook-form';
 // interfaces
 import { InputControllerProps } from 'interfaces/index';
@@ -23,6 +25,15 @@ const InputController: FC<InputControllerProps> = ({
   //   isPassword = false,
 }) => {
   const { control } = useFormContext();
+
+  const renderPhoneInput = (props: RenderProps) => {
+    return (
+      <TextInputMask
+        {...props}
+        mask={['(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+      />
+    );
+  };
 
   return (
     <Controller
@@ -52,6 +63,7 @@ const InputController: FC<InputControllerProps> = ({
               onFocus={onFocus}
               disabled={isDisabled}
               error={hasError}
+              {...(keyBoardType === 'phone-pad' && { render: renderPhoneInput })}
             />
             <HelperText type="error" visible={hasError}>
               {message}

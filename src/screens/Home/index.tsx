@@ -1,7 +1,6 @@
-import React, { FC } from 'react';
-import { View } from 'react-native';
-import { Avatar, Text } from 'react-native-paper';
-import { FlatList } from 'react-native';
+import React, { FC, useState } from 'react';
+import { Avatar, Menu, Text } from 'react-native-paper';
+import { TouchableOpacity, View, FlatList } from 'react-native';
 // components
 import Hero from './Hero';
 import ProductItem from 'components/ProductItem';
@@ -11,6 +10,9 @@ import LogoIcon from 'components/Logo';
 import { commonStyles } from 'theme/commonStyle';
 // interfaces
 import { CategoryType, ProductType } from 'interfaces/index';
+import { USER_STORAGE_KEY } from 'constants/index';
+import { clearAsyncStorage } from 'utils/storage';
+import { useAuthContext } from 'contexts/Auth';
 
 export const CATEGORIES: Array<CategoryType> = [
   {
@@ -70,12 +72,34 @@ export const PRODUCTS: Array<ProductType> = [
 ];
 
 const HomeScreen: FC = () => {
+  const [visible, setVisible] = useState(false);
+
+  const { setIsLoggedIn, setUser } = useAuthContext();
+  const openMenu = () => setVisible(true);
+  const closeMenu = () => setVisible(false);
+
+  const logout = () => {
+    clearAsyncStorage(USER_STORAGE_KEY);
+    setIsLoggedIn(false);
+    setUser(null);
+  };
+
   const renderHeader = () => (
     <>
       <View style={[commonStyles.p2]}>
         <View style={[commonStyles.flexRow, commonStyles.justifyBetween]}>
           <LogoIcon />
-          <Avatar.Image size={50} source={require('assets/img/Profile.png')} />
+          <Menu
+            visible={visible}
+            onDismiss={closeMenu}
+            anchorPosition="bottom"
+            anchor={
+              <TouchableOpacity onPress={openMenu}>
+                <Avatar.Image size={50} source={require('assets/img/Profile.png')} />
+              </TouchableOpacity>
+            }>
+            <Menu.Item onPress={() => logout()} title="Logout" />
+          </Menu>
         </View>
       </View>
       <Hero />

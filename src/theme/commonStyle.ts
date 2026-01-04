@@ -95,6 +95,34 @@ export const commonStyles = StyleSheet.create({
     marginTop: 32,
   },
 
+  // margin bottom
+  mb1: {
+    marginBottom: 8,
+  },
+  mb2: {
+    marginBottom: 16,
+  },
+  mb3: {
+    marginBottom: 24,
+  },
+  mb4: {
+    marginBottom: 32,
+  },
+
+  // margin vertical
+  mv1: {
+    marginVertical: 8,
+  },
+  mv2: {
+    marginVertical: 16,
+  },
+  mv3: {
+    marginVertical: 24,
+  },
+  mv4: {
+    marginVertical: 32,
+  },
+
   // text
 
   textCenter: {

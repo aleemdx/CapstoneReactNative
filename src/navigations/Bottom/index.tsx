@@ -1,20 +1,22 @@
 import React, { FC } from 'react';
 import { Icon } from 'react-native-paper';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { BottomTabNavigationOptions, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // screens
 import HomeStack from 'screens/Home';
+import ProfileScreen from 'screens/Profile';
 // constants
 import { IS_IOS, ROUTES } from 'constants/index';
 
 const Tab = createBottomTabNavigator();
-// const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator();
 
 const homeIcon: BottomTabNavigationOptions['tabBarIcon'] = (props) => {
   const { color } = props;
   return <Icon source="home" color={color} size={20} />;
 };
 
-const BottomTabs: FC = () => {
+export const BottomTabs: FC = () => {
   const { HOME } = ROUTES;
 
   return (
@@ -31,14 +33,15 @@ const BottomTabs: FC = () => {
   );
 };
 
-// const TabStack: FC = () => {
-//   const { TAB_STACK } = ROUTES;
+const TabStack: FC = () => {
+  const { PROFILE } = ROUTES;
 
-//   return (
-//     <Stack.Navigator initialRouteName={TAB_STACK} screenOptions={screenOptions}>
-//       <Stack.Screen name={TAB_STACK} component={BottomTabs} />
-//     </Stack.Navigator>
-//   );
-// };
+  return (
+    <Stack.Navigator initialRouteName={PROFILE} screenOptions={{ headerShown: false }}>
+      {/* <Stack.Screen name={TAB_STACK} component={BottomTabs} /> */}
+      <Stack.Screen name={PROFILE} component={ProfileScreen} />
+    </Stack.Navigator>
+  );
+};
 
-export default BottomTabs;
+export default TabStack;

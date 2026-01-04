@@ -3,10 +3,6 @@ import type { TextInputProps } from 'react-native-paper';
 import type { IconSource } from 'react-native-paper/lib/typescript/components/Icon';
 
 // general types
-export type User = {
-  firstName: string;
-  email: string;
-};
 
 export type Nullable<T> = T | null;
 
@@ -46,6 +42,13 @@ export type ProductItemProps = {
   item: ProductType;
 };
 
+export type CheckboxControllerProps = {
+  name: string;
+  label: string;
+  isRequired?: boolean;
+  isDisabled?: boolean;
+};
+
 // context types
 
 export type AuthContextType = {
@@ -56,3 +59,23 @@ export type AuthContextType = {
   user: Nullable<User>;
   setUser: (user: Nullable<User>) => void;
 };
+
+// form types
+
+export type GetStartedFormType = {
+  firstName: string;
+  email: string;
+};
+
+export type ProfileFormType = GetStartedFormType & {
+  lastName: string;
+  phone: string;
+
+  // checkbox values
+  orderStatus: boolean;
+  passwordChange: boolean;
+  specialOffers: boolean;
+  newsletter: boolean;
+};
+
+export type User = Partial<ProfileFormType>;
