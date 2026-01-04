@@ -11,11 +11,12 @@ import InputController from 'controllers/Input';
 import CheckboxController from 'controllers/Checkbox';
 // themes, constants, utils, contexts
 import { theme } from 'theme/index';
+import { useNavigate } from 'hooks/index';
 import { useAuthContext } from 'contexts/Auth';
 import { commonStyles } from 'theme/commonStyle';
 import { profileSchema } from 'validations/index';
-import { clearAsyncStorage, getAsyncStorageValue, setAsyncStorageValue } from 'utils/storage';
 import { ProfileFormType } from 'interfaces/index';
+import { clearAsyncStorage, getAsyncStorageValue, setAsyncStorageValue } from 'utils/storage';
 import {
   EMAIL,
   PHONE,
@@ -42,6 +43,7 @@ import {
 } from 'constants/index';
 
 const Profile: FC = () => {
+  const navigation = useNavigate();
   const [imageUri, setImageUri] = useState<string>('');
   const { setIsLoggedIn, setUser, user } = useAuthContext();
   const { firstName = '', lastName = '' } = user || {};
@@ -133,6 +135,7 @@ const Profile: FC = () => {
           icon="arrow-left"
           containerColor={theme.colors.primary}
           iconColor={theme.colors.white}
+          onPress={() => navigation.goBack()}
         />
         <LogoIcon />
         {imageUri ? (

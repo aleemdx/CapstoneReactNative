@@ -1,5 +1,7 @@
-import type { ImageSourcePropType, KeyboardTypeOptions } from 'react-native';
 import type { TextInputProps } from 'react-native-paper';
+import type { ParamListBase } from '@react-navigation/native';
+import type { KeyboardTypeOptions } from 'react-native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { IconSource } from 'react-native-paper/lib/typescript/components/Icon';
 
 // general types
@@ -12,12 +14,15 @@ export type CategoryType = {
 };
 
 export type ProductType = {
-  id: string;
   name: string;
   price: number;
-  image: ImageSourcePropType;
+  image: string;
   description: string;
+  category: string;
 };
+
+// Define the navigation prop types for each screen
+export type ScreenNavigationProp<T extends ParamListBase> = NativeStackNavigationProp<T, keyof T>;
 
 // props types
 

@@ -1,5 +1,5 @@
-import React, { FC, useState } from 'react';
-import { Avatar, Menu, Text } from 'react-native-paper';
+import React, { FC, useEffect, useState } from 'react';
+import { Avatar, Text } from 'react-native-paper';
 import { TouchableOpacity, View, FlatList } from 'react-native';
 // components
 import Hero from './Hero';
@@ -10,9 +10,9 @@ import LogoIcon from 'components/Logo';
 import { commonStyles } from 'theme/commonStyle';
 // interfaces
 import { CategoryType, ProductType } from 'interfaces/index';
-import { USER_STORAGE_KEY } from 'constants/index';
-import { clearAsyncStorage } from 'utils/storage';
-import { useAuthContext } from 'contexts/Auth';
+import { ROUTES } from 'constants/index';
+import { useNavigate } from 'hooks/index';
+import { fetchProducts } from './fetchProducts';
 
 export const CATEGORIES: Array<CategoryType> = [
   {
@@ -33,73 +33,32 @@ export const CATEGORIES: Array<CategoryType> = [
   },
 ];
 
-export const PRODUCTS: Array<ProductType> = [
-  {
-    id: '1',
-    name: 'Bruschetta',
-    price: 100,
-    image: require('assets/img/Bruschetta.png'),
-    description: 'Bruschetta description',
-  },
-  {
-    id: '2',
-    name: 'Greek Salad',
-    price: 200,
-    image: require('assets/img/Greek_salad.png'),
-    description: 'Greek Salad description',
-  },
-  {
-    id: '3',
-    name: 'Lemon Dessert',
-    price: 300,
-    image: require('assets/img/Lemon_dessert.png'),
-    description: 'Lemon Dessert description',
-  },
-  {
-    id: '4',
-    name: 'Grilled Fish',
-    price: 400,
-    image: require('assets/img/Grilled_fish.png'),
-    description: 'Grilled Fish description',
-  },
-  {
-    id: '5',
-    name: 'Pasta',
-    price: 500,
-    image: require('assets/img/Pasta.png'),
-    description: 'Pasta description',
-  },
-];
-
 const HomeScreen: FC = () => {
-  const [visible, setVisible] = useState(false);
+  const navigation = useNavigate();
+  const [products, setProducts] = useState<ProductType[]>([]);
 
-  const { setIsLoggedIn, setUser } = useAuthContext();
-  const openMenu = () => setVisible(true);
-  const closeMenu = () => setVisible(false);
-
-  const logout = () => {
-    clearAsyncStorage(USER_STORAGE_KEY);
-    setIsLoggedIn(false);
-    setUser(null);
+  const getProducts = async () => {
+    try {
+      const fetchedProducts = await fetchProducts();
+      setProducts(fetchedProducts);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
   };
+
+  useEffect(() => {
+    getProducts();
+  }, []);
 
   const renderHeader = () => (
     <>
       <View style={[commonStyles.p2]}>
         <View style={[commonStyles.flexRow, commonStyles.justifyBetween]}>
           <LogoIcon />
-          <Menu
-            visible={visible}
-            onDismiss={closeMenu}
-            anchorPosition="bottom"
-            anchor={
-              <TouchableOpacity onPress={openMenu}>
-                <Avatar.Image size={50} source={require('assets/img/Profile.png')} />
-              </TouchableOpacity>
-            }>
-            <Menu.Item onPress={() => logout()} title="Logout" />
-          </Menu>
+
+          <TouchableOpacity onPress={() => navigation.navigate(ROUTES.PROFILE)}>
+            <Avatar.Image size={50} source={require('assets/img/Profile.png')} />
+          </TouchableOpacity>
         </View>
       </View>
       <Hero />
@@ -118,9 +77,9 @@ const HomeScreen: FC = () => {
 
   return (
     <FlatList
-      data={PRODUCTS}
+      data={products}
       renderItem={({ item }) => <ProductItem item={item} />}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item) => item.name}
       ListHeaderComponent={renderHeader}
       showsVerticalScrollIndicator={false}
     />

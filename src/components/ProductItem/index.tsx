@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
-import { Image, StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-paper';
+import { Image, StyleSheet, View } from 'react-native';
 // interfaces
-import { ProductItemProps } from 'interfaces/index';
 import { commonStyles } from 'theme/commonStyle';
+import { ProductItemProps } from 'interfaces/index';
+import { getProductImage } from 'screens/Home/fetchProducts';
 
 const ProductItem: FC<ProductItemProps> = ({ item }) => {
   const { name, price, description, image } = item;
@@ -15,7 +16,13 @@ const ProductItem: FC<ProductItemProps> = ({ item }) => {
         <Text variant="titleMedium">${price}</Text>
       </View>
       <View style={[commonStyles.flex1, styles.imageContainer]}>
-        <Image source={image} style={[styles.image]} />
+        <Image
+          source={{ uri: getProductImage(image), method: 'GET' }}
+          style={[styles.image]}
+          onError={(err) => {
+            console.error('Error loading image:', err);
+          }}
+        />
       </View>
     </View>
   );

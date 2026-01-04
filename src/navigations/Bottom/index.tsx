@@ -34,11 +34,12 @@ export const BottomTabs: FC = () => {
 };
 
 const TabStack: FC = () => {
-  const { PROFILE } = ROUTES;
+  const { PROFILE, HOME } = ROUTES;
 
   return (
-    <Stack.Navigator initialRouteName={PROFILE} screenOptions={{ headerShown: false }}>
+    <Stack.Navigator initialRouteName={HOME} screenOptions={{ headerShown: false }}>
       {/* <Stack.Screen name={TAB_STACK} component={BottomTabs} /> */}
+      <Stack.Screen name={HOME} component={HomeStack} />
       <Stack.Screen name={PROFILE} component={ProfileScreen} />
     </Stack.Navigator>
   );

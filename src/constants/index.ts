@@ -58,3 +58,8 @@ export const PROFILE_FORM_INITIAL_VALUES: ProfileFormType = {
   specialOffers: false,
   newsletter: false,
 };
+
+// data urls
+
+export const PRODUCTS_DATA_URL =
+  'https://raw.githubusercontent.com/Meta-Mobile-Developer-PC/Working-With-Data-API/main/capstone.json';
