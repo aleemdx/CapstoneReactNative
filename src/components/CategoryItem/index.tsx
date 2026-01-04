@@ -1,13 +1,23 @@
+import React, { FC } from 'react';
 import { Text } from 'react-native-paper';
-import React, { FC, useState } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 // themes
 import { commonStyles } from 'theme/commonStyle';
 // interfaces
 import { CategoryType } from 'interfaces/index';
 
-const CategoryItem: FC<{ item: CategoryType }> = ({ item }) => {
-  const [isSelected, setIsSelected] = useState(false);
+type CategoryItemProps = {
+  item: CategoryType;
+  onSelect: (category: CategoryType) => void;
+  selectedCategories: string[];
+};
+
+const CategoryItem: FC<CategoryItemProps> = ({ item, onSelect, selectedCategories }) => {
+  const isSelected = selectedCategories.includes(item.value);
+  const handleSelect = () => {
+    onSelect(item);
+  };
+
   return (
     <TouchableOpacity
       style={[
@@ -15,7 +25,7 @@ const CategoryItem: FC<{ item: CategoryType }> = ({ item }) => {
         isSelected ? commonStyles.bgPrimary : commonStyles.bgHighlight,
         styles.categoryItem,
       ]}
-      onPress={() => setIsSelected(!isSelected)}>
+      onPress={handleSelect}>
       <Text
         style={[
           commonStyles.textCenter,

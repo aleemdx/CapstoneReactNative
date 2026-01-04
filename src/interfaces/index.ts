@@ -11,14 +11,16 @@ export type Nullable<T> = T | null;
 export type CategoryType = {
   id: string;
   name: string;
+  value: string;
 };
 
 export type ProductType = {
+  id?: number;
   name: string;
   price: number;
   image: string;
-  description: string;
   category: string;
+  description: string;
 };
 
 // Define the navigation prop types for each screen

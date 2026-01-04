@@ -13,16 +13,16 @@ type NavigationRouteProps<T extends ParamListBase> = RouteProp<T, keyof T>;
 export const useAppTheme = useTheme<AppTheme>;
 
 // debounce hook
-export const useDebounce = (inputValue: string) => {
+export const useDebounce = (inputValue: string, delay: number = 500) => {
   const [value, setValue] = useState<string>('');
 
   useEffect(() => {
     const delayInputTimeoutId = setTimeout(() => {
       setValue(inputValue);
-    }, 500);
+    }, delay);
 
     return () => clearTimeout(delayInputTimeoutId);
-  }, [inputValue]);
+  }, [inputValue, delay]);
 
   return value;
 };

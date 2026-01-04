@@ -1,11 +1,15 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { Text, Searchbar } from 'react-native-paper';
 // themes
 import { commonStyles } from 'theme/commonStyle';
 
-const Hero: FC = () => {
-  const [searchQuery, setSearchQuery] = useState('');
+type HeroProps = {
+  searchQuery: string;
+  setSearchQuery: (query: string) => void;
+};
+
+const Hero: FC<HeroProps> = ({ searchQuery, setSearchQuery }) => {
   return (
     <View style={[commonStyles.bgPrimary, commonStyles.p2]}>
       <Text variant="titleLarge" style={[commonStyles.textSecondary]}>
